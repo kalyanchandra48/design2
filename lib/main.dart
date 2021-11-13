@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 void main() {
   runApp(
@@ -9,13 +10,22 @@ void main() {
   );
 }
 
-class SecondDesign extends StatelessWidget {
+class SecondDesign extends StatefulWidget {
+  @override
+  _SecondDesignState createState() => _SecondDesignState();
+}
+
+class _SecondDesignState extends State<SecondDesign> {
+  @override
   List<String> images = [
     'assets/hall.jpeg',
     'assets/dinetable.jpeg',
     'assets/bedroom.jpeg',
     'assets/bathroom.jpeg'
   ];
+  Color box1Color = Colors.white;
+  Color boxColor = Colors.white;
+  Color favouriteColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +66,18 @@ class SecondDesign extends StatelessWidget {
                         alignment: Alignment.topRight,
                         child: CircleAvatar(
                           radius: 25,
-                          backgroundColor: Colors.grey.shade200,
-                          child: Icon(Icons.favorite_border, size: 33),
+                          backgroundColor: Colors.yellow,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                favouriteColor == Colors.blue
+                                    ? favouriteColor = Colors.white
+                                    : favouriteColor = Colors.blue;
+                              });
+                            },
+                            child: Icon(Icons.favorite,
+                                size: 33, color: favouriteColor),
+                          ),
                         ),
                       ),
                     ),
@@ -119,7 +139,6 @@ class SecondDesign extends StatelessWidget {
                         child: Icon(
                           Icons.star_rate,
                           size: 25,
-                          color: Colors.yellow,
                         ),
                       ),
                     ),
@@ -130,7 +149,6 @@ class SecondDesign extends StatelessWidget {
                         child: Icon(
                           Icons.star_rate,
                           size: 25,
-                          color: Colors.yellow,
                         ),
                       ),
                     ),
@@ -141,7 +159,6 @@ class SecondDesign extends StatelessWidget {
                         child: Icon(
                           Icons.star_rate,
                           size: 25,
-                          color: Colors.yellow,
                         ),
                       ),
                     ),
@@ -152,7 +169,6 @@ class SecondDesign extends StatelessWidget {
                         child: Icon(
                           Icons.star_rate,
                           size: 25,
-                          color: Colors.yellow,
                         ),
                       ),
                     ),
@@ -161,9 +177,8 @@ class SecondDesign extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Icon(
-                          Icons.star_half,
+                          Icons.star_border_outlined,
                           size: 25,
-                          color: Colors.yellow,
                         ),
                       ),
                     ),
@@ -223,13 +238,12 @@ class SecondDesign extends StatelessWidget {
                           height: 50,
                           width: 95,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(images[i]),
-                              fit: BoxFit.fill,
-                            ),
                             borderRadius: BorderRadius.all(
-                              Radius.circular(15),
+                              Radius.circular(19),
                             ),
+                          ),
+                          child: PhotoView(
+                            imageProvider: AssetImage(images[i]),
                           ),
                         );
                       },
@@ -302,22 +316,31 @@ class SecondDesign extends StatelessWidget {
             padding: EdgeInsets.only(left: 24),
             child: Row(
               children: [
-                Container(
-                  height: 60,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                      color: Colors.white),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Live',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      box1Color == Colors.blue
+                          ? box1Color = Colors.white
+                          : box1Color = Colors.blue;
+                    });
+                  }, // Handle your callback
+                  child: Container(
+                    height: 60,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                        color: box1Color),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Live',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
@@ -325,22 +348,31 @@ class SecondDesign extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                Container(
-                  height: 60,
-                  width: 250,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                      color: Colors.blue),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Book Now',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      boxColor == Colors.blue
+                          ? boxColor = Colors.white
+                          : boxColor = Colors.blue;
+                    });
+                  }, // Handle your callback
+                  child: Container(
+                    height: 60,
+                    width: 250,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                        color: boxColor),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Book Now',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
